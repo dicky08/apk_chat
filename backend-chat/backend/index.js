@@ -32,8 +32,10 @@ io.on('connection',(socket) => {
   })
   
   socket.on('send-message', (payload) => {
+    console.log(payload)
     const msg = `${payload.sender}: ${payload.message}`
-    db.query(`INSERT INTO message (sender,receiver,image_chat,message) VALUES ('${payload.sender}','${payload.receiver}','${payload.message}')`, (err,result) => {
+    db.query(`INSERT INTO message (sender,receiver,message) 
+    VALUES ('${payload.sender}','${payload.receiver}','${payload.message}')`, (err,result) => {
       if (err) {
         console.log(err.message);
       }else{

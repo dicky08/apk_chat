@@ -116,11 +116,11 @@ export default {
 .side-profile {
 position: absolute !important;
 left: 0;
-transform: translateX(-100%);
+transform: translateX(-200%);
 }
 
 .editProfileClose {
   transition: all 1s;
-transform: translateX(-100%);
+transform: translateX(-200%);
 }
 </style>

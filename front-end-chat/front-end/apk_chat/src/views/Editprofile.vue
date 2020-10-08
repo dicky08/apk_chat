@@ -76,6 +76,7 @@
                                 <div class="col-lg-12 col-12">
                                     <div class="edit-button text-right mt-4">
                                 <button class="btn  btn-primary" @click.prevent="update()">Update profile</button>
+                                <button class="btn  btn-primary" @click.prevent="chatlist()">Backto Chatlist</button>
                               </div>
                             </div>
                           </div>
@@ -133,14 +134,15 @@ export default {
       }
       this.actUpdateUser(save)
         .then((result) => {
-          // alert(result)
-          console.log(result)
-          console.log(this.getDetailUser.detailUser.image)
-          // window.location = '/chatlist'
+          alert(result)
+          window.location = '/chatlist'
           localStorage.setItem('image', this.getDetailUser.detailUser.image)
         }).catch((err) => {
           alert(err.message)
         })
+    },
+    chatlist () {
+      window.location = '/chatlist'
     }
   },
   mounted () {

@@ -10,11 +10,6 @@
             <h4><b-icon-text-left style="color:#7E98DF;cursor:pointer; margin-left:50px" @click="menu_toggle"></b-icon-text-left></h4>
           </div>
         </div>
-        <!-- <div class="menu d-flex justify-content-between mt-3 m-4">
-          <h4 style="color:#7E98DF">Telegram </h4>
-          <h4><b-icon-text-left style="color:#7E98DF;cursor:pointer; margin-left:50px" @click="menu_toggle"></b-icon-text-left></h4>
-          <h4><b-icon-text-left style="color:#7E98DF;cursor:pointer" class="menu-togle" @click="menu_toggle"></b-icon-text-left></h4>
-        </div> -->
         <div class="menu-list">
           <p><b-icon-gear class="ml-2"></b-icon-gear><span class="ml-1" @click="list()">Settings</span></p>
           <p><b-icon-person class="ml-2"></b-icon-person><span class="ml-1">Contacts</span></p>
@@ -56,13 +51,6 @@
             <h6>Unread</h6>
           </div>
         </div>
-        <!-- <div class="row d-flex justify-content-between align-items-center m-4 list-navigate">
-          <h6>All</h6>
-          <h4><span class="badge" style="border-radius: 20px;height:30px;background-color:#7E98DF; ">Important</span></h4>
-          <h6>Unread</h6>
-          <h6 class="read">Read</h6>
-          <h6 class="read2">Read</h6>
-        </div> -->
         <div class="row chat d-flex justify-content-between m-2 mt-5">
             <div class="col-12"  v-for="(user,index) in listUsers" :key="index">
               <div class="row mb-3" v-if="fullname !== user.full_name">
@@ -186,260 +174,11 @@
               <button class="btn btn-md btn-secondary m-0 px-3" type="button" id="MaterialButton-addon2" @click="sendMessage()">Button</button>
             </div>
           </div>
-            <!-- <div class="input-group-append">
-              <button class=" btn btn-md btn-outline-default m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2"><b-icon-cursor @click="sendMessage()"></b-icon-cursor></button>
-            </div> -->
         </div>
       </div>
     </div>
     <Sidebar @closeprofile="list"/>
   </div>
-    <!-- <div class="row">
-      <div class="col-12 col-lg-3 sideleft">
-        <div class="menu d-flex justify-content-between mt-3 m-4">
-          <h4 style="color:#7E98DF">Telegram </h4>
-          <h4><b-icon-text-left style="color:#7E98DF;cursor:pointer" @click="menu_toggle"></b-icon-text-left></h4>
-        </div>
-        <div class="menu-list">
-              <p><b-icon-gear class="ml-2"></b-icon-gear><span class="ml-1">Settings</span></p>
-              <p><b-icon-person class="ml-2"></b-icon-person><span class="ml-1">Contacts</span></p>
-              <p><b-icon-telephone class="ml-2"></b-icon-telephone><span class="ml-1">Call</span></p>
-              <p><b-icon-bookmark class="ml-2"></b-icon-bookmark><span class="ml-1">Save messages</span></p>
-              <p><b-icon-person-plus class="ml-2"></b-icon-person-plus><span class="ml-1">Invite friends</span></p>
-              <p><b-icon-exclamation-circle class="ml-2"></b-icon-exclamation-circle><span class="ml-1">Invite friends</span></p>
-        </div>
-        <div class="row m-4 d-flex justify-content-between">
-            <form class="form-inline  d-flex justify-content-center md-form form-sm mt-0">
-              <i class="fas fa-search" aria-hidden="true"></i>
-              <input class="form-control form-control-sm ml-3 col-lg-9 col-9" type="text" placeholder="Search"
-                aria-label="Search">
-            </form>
-          <h3><b-icon-plus style="color:#7E98DF"></b-icon-plus></h3>
-        </div>
-        <div class="row d-flex justify-content-between align-items-center m-4">
-          <h6>All</h6>
-          <h4><span class="badge" style="border-radius: 20px;height:30px;background-color:#7E98DF; ">Important</span></h4>
-          <h6>Unread</h6>
-          <h6 class="read">Read</h6>
-        </div>
-        <div v-if="userReceiver !== null ">
-          {{userReceiver}}
-        </div>
-        <div class="row">
-          <ul>
-            <li v-for="(users,index) in listUsers" :key="index">
-              <span v-if="email !== users.email" @click="selectUsers(users.email)" class="">
-                {{users.email}}
-              </span>
-              <div class="ext-center" v-else>
-                {{email}}
-              </div>
-            </li>
-          </ul> -->
-          <!-- <ul class="list-group">
-            <li class="list-group-item ml-5" v-for="(users,index) in listUsers" :key="index">
-              <button v-if="email !== users.email" @click.prevent="selectUsers(users.email)" class="btn btn-primary">
-                {{users.email}}
-              </button>
-              <div class="bg-primary text-center" v-else>
-                {{email}}
-              </div>
-              </li>
-          </ul> -->
-        <!-- </div> -->
-  <!-- <div class="row chat d-flex justify-content-between m-2 mt-5">
-            <div class="col-12">
-              <div class="row mb-3">
-                <div class="col-3">
-                  <img src="../assets/img/Rectangle 3.png" width="60px" height="60px" style="border-radius: 20px;">
-                </div>
-                <div class="col-9">
-                  <div class="row text-chat">
-                    <div class="col-10 d-flex">
-                        <h6>Dicky Firmansyah</h6>
-                        <b-icon-caret-up-fill style="margin-top:3px; margin-left:2px"></b-icon-caret-up-fill>
-                    </div>
-                    <div class="col-2">
-                      <p><small class="time">12:30</small></p>
-                    </div>
-                  </div>
-                  <div class="row text-chat">
-                    <div class="col-10 col-lg-10">
-                        <p>What are you doiing!</p>
-                    </div>
-                    <div class="col-2 col-lg-2">
-                      <span class="badge rounded-circle text-right" style="background-color:#7E98DF" >1</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-               <div class="row">
-                <div class="col-3">
-                  <img src="../assets/img/Rectangle 8.png" width="60px" height="60px" style="border-radius: 20px;">
-                </div>
-                <div class="col-9">
-                  <div class="row text-chat">
-                    <div class="col-10 d-flex">
-                        <h6>Angling darma</h6>
-                        <b-icon-caret-up-fill style="margin-top:3px; margin-left:2px"></b-icon-caret-up-fill>
-                    </div>
-                    <div class="col-2">
-                      <p><small class="time">12:30</small></p>
-                    </div>
-                  </div>
-                  <div class="row text-chat">
-                    <div class="col-10 col-lg-10">
-                        <p>What are you doiing!</p>
-                    </div>
-                    <div class="col-2 col-lg-2">
-                      <span class="badge rounded-circle text-right" style="background-color:#7E98DF">1</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>-->
-      <!-- </div> -->
-      <!-- <div class="col-6 " id="content">
-          <div class="row  mb-4 d-flex justify-content-between nav-content p-0"  style="background-color:#FFF; height:75px;">
-              <div class="img">
-                  <div class="row">
-                    <div class="col-4 nav-img">
-                      <img @click="toogleImage" src="../assets/img/Rectangle 9.png" class="m-2 ml-4" width="60px" height="60px" style="border-radius: 20px;">
-                    </div>
-                    <div class="col-8 align-self-center">
-                      <h5>Angling Darma </h5>
-                    <p style="color:#7E98DF">Online </p>
-                    </div>
-                  </div>
-              </div>
-                <a class="nav-link text-black align-self-center" href="#">
-                    <b-icon-grid-fill @click="togglesideright"></b-icon-grid-fill>
-                </a>
-          </div> -->
-  <!-- <div class="row">
-            <div class="col-lg-12 col-12">
-              <div class="row mb-3">
-                <div class="col-lg-2 col-2" v-if="userReceiver !== null"> -->
-                  <!-- <img src="../assets/img/Rectangle 9.png"> -->
-                  <!-- {{userReceiver}}
-                </div>
-                <div class="buble-chart">
-                  <p style="margin:15px">Mang oleh? {{userReceiver}}</p>
-                </div>
-              </div>
-            </div> -->
-            <!-- <div class="col-lg-12 col-12">
-              <div class="row  float-right">
-                <div class="buble-chart2 ">
-                  <p style="margin:15px">opoasdadadads?</p>
-                </div>
-                <div class="col-lg-2 col-2">
-                  <img src="../assets/img/Rectangle 9.png">
-                </div>
-              </div>
-            </div> -->
-          <!-- </div> -->
-          <!-- <div class="row mt-3">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-3">
-                 <div class="img-message">
-                    <img src="../assets/img/Rectangle 8.png" class="mb-5 mt-5" width="60px" style="border-radius: 20px;">
-                  <div class="box-message text-white">
-                    Neng aya dimana?
-                  </div>
-                 </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row mr-2 friend-other" style="margin-top:-120px">
-            <div class="col-12">
-              <div class="row d-flex justify-content-end btn-message">
-                 <div class="ml-4 message2">Dibumi mang, kunaon?</div>
-                 <div class="ml-5">
-                   <img src="../assets/img/Rectangle 9.png" class="mb-5 mt-5" width="60px" style="border-radius: 20px;">
-                 </div>
-                </div>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-3">
-                 <div class="img-message">
-                    <img src="../assets/img/Rectangle 8.png" class="mb-5 mt-5" width="60px" style="border-radius: 20px;">
-                  <div class="box-message text-white">
-                    Iyeu amang tos meser odading mang oleh nu rasanya seperti ironman, kadie nyobian buru...
-                  </div>
-                 </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row mr-2 friend-other" >
-            <div class="col-12">
-              <div class="row d-flex justify-content-end btn-message">
-                 <div class="ml-4 message2" style="margin-top:-60px">Enya kedap mang hoyong ngasaan eta odading mang oleh nu rasanya ** banget...</div>
-                 <div class="ml-5">
-                   <img src="../assets/img/Rectangle 9.png" class="mb-5 mt-5" width="60px" style="border-radius: 20px;">
-                 </div>
-                </div>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-3">
-                 <div class="img-message">
-                    <img src="../assets/img/Rectangle 8.png" class="mb-5 mt-5" width="60px" style="border-radius: 20px;">
-                  <div class="box-message text-white">
-                    Iyeu amang tos meser odading mang oleh nu rasanya seperti ironman, kadie nyobian buru...
-                  </div>
-                 </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-          <!-- <form>
-            <div class="row hobat">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control " placeholder="Type your message" aria-label="Recipient's username"
-                aria-describedby="button-addon2" v-model="message">
-              <div class="input-group-append">
-                <button class=" btn btn-md btn-outline-default m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2"><b-icon-cursor @click="sendMessage()"></b-icon-cursor></button>
-              </div>
-            </div>
-          </div>
-          </form>
-      </div>
-      <div class="col-3 sideright">
-        <div class="email d-flex justify-content-center align-items-center mt-3 font-weight-bold">
-          <a href="" ><b-icon-chevron-left class="mt-2" ></b-icon-chevron-left></a>
-          <a href="" class="ml-4">@masdmad {{bodo}}</a>
-        </div>
-        <div class="menu-right text-center mt-5 ">
-          <img src="../assets/img/Rectangle 8.png" width="60px" class="mb-5">
-        </div>
-        <div class="row m-3 d-flex justify-content-between">
-          <h5>Angling darma {{bodo}}</h5>
-                      <div v-if="bodo !== null">
-                        <p>asad</p>
-                      </div>
-          <h4><b-icon-menu-up></b-icon-menu-up></h4>
-        </div>
-          <p class="ml-3" style="margin-top:-15px;font-size:13px">Online</p>
-          <p class="m-3 font-weight-bold">Phone number</p>
-          <p class="m-3">123675</p>
-          <div class="row m-3 d-flex justify-content-between">
-            <h6>Location</h6>
-            <h5><span class="badge text-center" style="width:95px;border-radius: 20px;height:30px;background-color:#7E98DF;line-height:20px">Image</span></h5>
-            <h6>Documents</h6>
-          </div>
-      </div>
-    </div>
-  </div> -->
 </template>
 
 <script>
@@ -544,12 +283,6 @@ export default {
     },
     menu_list () {
       const sLeft = document.querySelector('.sideleft')
-      // const msg = document.querySelector('.messages')
-      // const nav = document.querySelector('.navbar-profile')
-      // const nav2 = document.querySelector('.navbar-profile2')
-      // nav2.style.display = 'none'
-      // nav.style.display = 'none'
-      // msg.style.display = 'none'
       sLeft.classList.toggle('empty')
     },
     logout () {
@@ -578,6 +311,7 @@ export default {
     this.socket.on('status', (status) => {
       this.status = status
     })
+    this.imageSender()
   }
 }
 </script>
@@ -813,5 +547,10 @@ background-color: #b6b1b1;
 .navbar-profile img{
   margin-left: 15px;
 }
+.slider {
+  transform: translateX(200%);
+  width: 0;
+}
+
 }
 </style>
