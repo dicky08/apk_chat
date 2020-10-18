@@ -61,7 +61,11 @@ export default {
     onLogin () {
       this.actionLogin(this.form)
         .then((response) => {
-          window.location = '/editprofile'
+          if (response.code === 402) {
+            alert('Email/Password salah')
+          } else {
+            window.location = '/editprofile'
+          }
         })
         .catch((err) => {
           alert(err.message)
@@ -69,9 +73,9 @@ export default {
     }
   },
   mounted () {
-    // if (this.dataLocal) {
-    //   window.location = '/chatlist'
-    // }
+    if (this.dataLocal) {
+      window.location = '/chatlist'
+    }
   }
 }
 </script>

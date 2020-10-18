@@ -1,4 +1,4 @@
-const {getAllUsersModel,registerUsersModel,getEmail,updateUsers,updateStatus,getId,loginUsers,UpdateRefreshToken} = require('../model/usersModel')
+const {getAllUsersModel,registerUsersModel,getEmail,updateUsers,updateStatus,getId,loginUsers,UpdateRefreshToken,deleteMsg} = require('../model/usersModel')
 const bcrypt = require('bcrypt')
 const { emailSend } = require('../helper/sendEmail')
 const jwt = require('jsonwebtoken')
@@ -185,6 +185,15 @@ const usersController = {
         })
     }else{
       failed(res,[],'Token null')
+    }
+  },
+  deleteMessage: async (req,res) => {
+    try {
+      const id = req.params.id
+      const deleteMessage = await deleteMsg(id)
+      success(res,deleteMessage, 'Delete Message Success')
+    } catch (err) {
+      error(res,[],err.message)
     }
   }
   

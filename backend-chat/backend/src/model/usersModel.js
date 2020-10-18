@@ -152,6 +152,13 @@ registerUsersModel: (data) => {
       }
     })
   })
+},
+deleteMsg: (id) => {
+  return new Promise((resolve, reject) => {
+    db.query(`DELETE FROM message WHERE id=${id}`, (err,result) => {
+      err?reject(new Error(err.message)): resolve(result)
+    })
+  })
 }
 }
 

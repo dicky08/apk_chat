@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div class="row">
-    <div class="col-3 col-lg-3 bg-white side-profile">
+    <div class=" col-12 col-lg-3 bg-white side-profile">
       <div class="row p-3 mt-3 text-center">
         <div class="col-lg-3 col-6">
           <b-icon-chevron-left @click="$emit('closeprofile')" style="cursor:pointer"></b-icon-chevron-left>
@@ -12,7 +12,7 @@
       </div>
       <div class="row">
         <div class="col-lg-12 col-12 d-flex justify-content-center mt-5 mb-3">
-          <img :src="`http://localhost:3000/${getDetailUser.detailUser.image}`" class="rounded-circle">
+          <img :src="`${URL}/${getDetailUser.detailUser.image}`" class="rounded-circle">
         </div>
           <div class="col-lg-12 name-akun d-flex flex-column justify-content-center align-items-center">
             <h5>{{getDetailUser.detailUser.full_name}}</h5>
@@ -81,7 +81,6 @@
           <div class="col-lg col">Devices</div>
         </div>
       </div>
-
     </div>
   </div>
   </div>
@@ -90,6 +89,11 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 export default {
+  data () {
+    return {
+      URL: process.env.VUE_APP_URL
+    }
+  },
   computed: {
     ...mapState({
       id: 'id'

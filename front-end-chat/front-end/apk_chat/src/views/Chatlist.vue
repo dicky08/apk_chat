@@ -7,6 +7,7 @@
 <script>
 import Chat from '../components/Chat'
 import io from 'socket.io-client'
+import { URL } from '../helper/env'
 import { mapState, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Chatlist',
@@ -15,7 +16,7 @@ export default {
   },
   data () {
     return {
-      socket: io('http://localhost:3000')
+      socket: io(`${URL}`)
     }
   },
   computed: {

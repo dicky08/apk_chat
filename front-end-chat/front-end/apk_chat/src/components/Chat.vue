@@ -16,13 +16,13 @@
           <p><b-icon-telephone class="ml-2"></b-icon-telephone><span class="ml-1">Call</span></p>
           <p><b-icon-bookmark class="ml-2"></b-icon-bookmark><span class="ml-1">Save messages</span></p>
           <p><b-icon-person-plus class="ml-2"></b-icon-person-plus><span class="ml-1">Invite friends</span></p>
-          <p><b-icon-exclamation-circle class="ml-2"></b-icon-exclamation-circle><span class="ml-1">Invite friends</span></p>
+          <p><b-icon-map class="ml-2"></b-icon-map><span class="ml-1" @click="map">Map</span></p>
           <p><b-icon-power class="ml-2"></b-icon-power><span class="ml-1" @click.prevent="logout()">Logout</span></p>
         </div>
         <div class="row">
           <div class="col-12" v-for="(user,index) in listUsers" :key="index">
             <div class="me d-flex flex-column justify-content-center align-items-center" v-if="fullname === user.full_name">
-              <img :src="`http://localhost:3000/${user.image}`" class="rounded-circle">
+              <img :src="`${URL}/${user.image}`" class="rounded-circle">
               <h5>{{user.full_name}}</h5>
               <p>{{user.username}}</p>
             </div>
@@ -48,14 +48,14 @@
             <h4><span class="badge" style="border-radius: 20px;height:30px;background-color:#7E98DF; ">Important</span></h4>
           </div>
           <div class="col-lg-4 col-4 col-md-4 text-right">
-            <h6>Unread</h6>
+            <h6>Unread </h6>
           </div>
         </div>
         <div class="row chat d-flex justify-content-between m-2 mt-5">
             <div class="col-12"  v-for="(user,index) in listUsers" :key="index">
               <div class="row mb-3" v-if="fullname !== user.full_name">
                 <div class="col-3" >
-                  <img :src="`http://localhost:3000/${user.image}`" width="60px" height="60px" style="border-radius: 20px;">
+                  <img :src="`${URL}/${user.image}`" width="60px" height="60px" style="border-radius: 20px;">
                 </div>
                 <div class="col-9 selectUser" @click="selectUser(user.full_name,user.image)" >
                   <div class="row text-chat">
@@ -71,8 +71,15 @@
                     <div class="col-10 col-lg-10">
                         <p>What are you doiing!</p>
                     </div>
-                    <div class="col-2 col-lg-2">
-                      <span class="badge rounded-circle text-right" style="background-color:#7E98DF" >1</span>
+                      <div v-if="listMessages.length === 0">
+                         <span class="badge rounded-circle text-right" style="background-color:#7E98DF" >0</span>
+                        </div>
+                        <div v-else>
+                    <div class="col-2 col-lg-2" v-for="(dataMsg,index) in listMessages" :key="index">
+                          <div v-if="dataMsg.sender===user.full_name || dataMsg.sender===fullname" >
+                            <span class="badge rounded-circle text-right" style="background-color:#7E98DF" >{{listMessages.length}}</span>
+                          </div>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -83,8 +90,8 @@
       <div class="col-md-9 col-lg-9 col-12 nav-profile" >
         <div v-if="userReceiver !== null">
           <div class="row mb-4 nav-profiles">
-            <div class="navbar-profile bg-white d-flex " style="width:100%; padding:10px">
-                <img :src="`http://localhost:3000/${userImage}`" class="rounded-circle">
+            <div class="navbar-profile bg-white d-flex " style="width:1100px; padding:10px">
+                <img :src="`${URL}/${userImage}`" class="rounded-circle">
                 <div class="name-profile ml-2">
                   <h6>{{userReceiver}}</h6>
                     <div class="text-success" v-if="status==='online'">
@@ -101,7 +108,7 @@
           </div>
         </div>
         <div v-else>
-          <div class="row navbar-profile2">
+          <div class="row navbar-profile2" style="width:1100px">
             <div class="navbar-profile bg-white d-flex" style="width:100%; padding:10px">
                 <img src="../assets/img/default.jpg" class="rounded-circle">
                 <div class="name-profile ml-2">
@@ -129,24 +136,35 @@
                 </div>
               </div>
             </div>
-            <div v-for="(dataUser,index) in historyAllMessages " :key="index">
-               <div class="d-flex mb-3" v-if="dataUser.sender !== fullname">
-                     <img :src="`http://localhost:3000/${userImage}`" class="rounded-circle"  style="object-fit: contain;">
+            <div v-for="(dataUser,index) in historyAllMessages " :key="index" >
+               <div class="d-flex mb-3 msg-chat" v-if="dataUser.sender !== fullname">
+                 <div class="detail-msg">
+                    <p><b-icon-power class="ml-2"></b-icon-power><span class="ml-1" @click.prevent="logout()">Logout</span></p>
+                  </div>
+                     <img :src="`${URL}/${userImage}`" class="rounded-circle"  style="object-fit: contain;">
                    <p style="padding:10px " class="buble-chats ml-4">
-                     {{dataUser.message}}
+                     <span class="pesanAll">
+                       {{dataUser.message}} X</span>
                    </p>
                 </div>
                  <div class="d-flex justify-content-end mb-3" v-else>
                    <p style="padding:10px " class="buble-chats2 mr-4">
-                     {{dataUser.message}}
+                      <b-dropdown id="dropdown-dropleft" dropleft text="Drop-Left" size="sm"  variant="link" toggle-class="text-decoration-none" no-caret style="margin-top:-30px; margin-left:-25px">
+                        <template v-slot:button-content>
+                          <b-icon-three-dots></b-icon-three-dots>
+                        </template>
+                        <b-dropdown-item href="#" @click="deleted(dataUser)">Delete</b-dropdown-item>
+                      </b-dropdown>
+                     <span class="pesanAll">
+                       {{dataUser.message}}</span>
                    </p>
-                     <img :src="`http://localhost:3000/${imageSender}`" class="rounded-circle mr-3 " style="object-fit: cover;">
+                     <img :src="`${URL}/${chat.detailUser.image}`" class="rounded-circle mr-3 " style="object-fit: cover;">
                 </div>
             </div>
             <div v-if="userReceiver !== null">
               <div v-for="(dataUser, index) in privateMessages" :key="index">
                 <div class="d-flex mb-3" v-if="dataUser.sender !== fullname">
-                     <img :src="`http://localhost:3000/${dataUser.img}`" class="rounded-circle" >
+                     <img :src="`${URL}/${dataUser.img}`" class="rounded-circle" >
                    <p style="padding:10px " class="buble-chats ml-4">
                      {{dataUser.message}}
                    </p>
@@ -155,24 +173,24 @@
                    <p style="padding:10px " class="buble-chats2 mr-4">
                      {{dataUser.message}}
                    </p>
-                     <img :src="`http://localhost:3000/${dataUser.img}`" class="rounded-circle mr-3 " >
+                     <img :src="`${URL}/${dataUser.img}`" class="rounded-circle mr-3 " >
                 </div>
               </div>
             </div>
             <div v-else>
               <div v-for="(dataUser, index) in listMessages" :key="index">
-              {{dataUser.message}}
+              {{dataUser}}
             </div>
             </div>
         </div>
         <div class="row send-messages mt-5">
           <div class="md-form input-group mb-3" style="width:98%">
-            <input type="text" class="form-control" placeholder="Type your message" aria-label="Recipient's username"
-            v-model="message"
-              aria-describedby="MaterialButton-addon2">
             <div class="input-group-append">
               <button class="btn btn-md btn-secondary m-0 px-3" type="button" id="MaterialButton-addon2" @click="sendMessage()">Button</button>
             </div>
+            <input type="text" class="form-control" placeholder="Type your message" aria-label="Recipient's username"
+            v-model="message"
+              aria-describedby="MaterialButton-addon2">
           </div>
         </div>
       </div>
@@ -184,7 +202,8 @@
 <script>
 import Sidebar from '../components/Sidebar'
 import io from 'socket.io-client'
-// import { URL } from '../helper/env'
+import { URL } from '../helper/env'
+import { mapActions } from 'vuex'
 export default {
   name: 'Content',
   props: ['chat'],
@@ -193,9 +212,10 @@ export default {
   },
   data () {
     return {
+      URL: process.env.VUE_APP_URL,
       message: null,
       email: this.$route.query.email,
-      socket: io('http://localhost:3000'),
+      socket: io(`${URL}`),
       listUsers: [],
       fullname: localStorage.getItem('fullname'),
       imageSender: localStorage.getItem('image'),
@@ -204,7 +224,8 @@ export default {
       listMessages: [],
       status: null,
       privateMessages: [],
-      historyAllMessages: []
+      historyAllMessages: [],
+      img: this.chat.detailUser.image
     }
   },
   methods: {
@@ -216,9 +237,9 @@ export default {
         this.listMessages = [...this.listMessages, {
           sender: this.fullname,
           receiver: this.userReceiver,
-          message: msg,
-          image: this.imageSender
+          message: msg
         }]
+        // this.listMessages = []
 
         this.getPrivateMessage()
 
@@ -260,12 +281,25 @@ export default {
         this.historyAllMessages = data
       })
     },
+    ...mapActions({
+      deleteMsg: 'auth/deleteMessage'
+    }),
+    deleted (data) {
+      this.deleteMsg(data.id)
+        .then((result) => {
+          alert(result)
+          setTimeout(() => {
+            location.reload(true)
+          }, 1000)
+        }).catch((err) => {
+          alert(err.message)
+        })
+    },
     toogleImage () {
       const sRight = document.querySelector('.sideright')
       const content = document.querySelector('.nav-content')
       const btn = document.querySelector('.hobat')
       const message2 = document.querySelectorAll('.friend-other')
-      // const shop = document.querySelector('.shop')
       sRight.classList.toggle('slide')
       content.classList.toggle('conten-nav')
       btn.classList.toggle('send-msg')
@@ -281,9 +315,21 @@ export default {
       const slide = document.querySelector('.side-profile')
       slide.classList.toggle('slider')
     },
+    map () {
+      window.location = '/about'
+    },
     menu_list () {
       const sLeft = document.querySelector('.sideleft')
       sLeft.classList.toggle('empty')
+    },
+    detailMsg (index) {
+      // const z = this.historyAllMessages
+      // for (const x in z) {
+      //   console.log(z[index]);
+      // }
+      // alert(this.historyAllMessages.[index])
+      // const detailMsg = document.querySelector('.detail-msg')
+      // detailMsg.classList.toggle('display-detail-msg')
     },
     logout () {
       localStorage.removeItem('id')
@@ -311,7 +357,6 @@ export default {
     this.socket.on('status', (status) => {
       this.status = status
     })
-    this.imageSender()
   }
 }
 </script>
@@ -457,16 +502,7 @@ background-color: #b6b1b1;
   z-index: 2;
   cursor: pointer;
 }
-.menu-list-user {
-  position: absolute;
-  background-color: #7E98DF;
-  height: 0;
-  width: 0;
-  left: 200px;
-  top: 75px;
-  transition: all .7s;
-  transform: scale(0);
-}
+
 .menu-user-toggle {
   padding-top: 5px;
   transform: scale(1);
@@ -499,6 +535,36 @@ background-color: #b6b1b1;
 }
 .menu-togle, .plus-icon, .read2 {
   display: none !important;
+}
+.pesanAll {
+  cursor: pointer;
+}
+.detail-msg {
+   position: absolute;
+  background-color: #7E98DF;
+  min-heigh:100px;
+  width: 0;
+  left: 200px;
+  top: 175px;
+  transition: all .7s;
+  transform: scale(0);
+}
+.display-detail-msg {
+  padding-top: 5px;
+  transform: scale(1);
+  position: absolute;
+  width: 200px;
+  padding: 15px;
+  background-color: #7E98DF;
+  border-radius: 35px 10px 35px 35px;
+  left: 250px;
+  top: 155px;
+  overflow: hidden;
+  z-index: 2;
+  cursor: pointer;
+}
+.msg-chat {
+  position: relative;
 }
 @media(max-width: 600px) {
   .empty, .navbar-profile2 {
@@ -542,13 +608,13 @@ background-color: #b6b1b1;
   margin-left: 15px;
 }
 .nav-profiles {
-  width: 520px;
+  width:1500px;
 }
 .navbar-profile img{
   margin-left: 15px;
 }
 .slider {
-  transform: translateX(200%);
+  transform: translateX(2%);
   width: 0;
 }
 

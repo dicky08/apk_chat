@@ -5,7 +5,7 @@
        <div class="" style=" display: flex; justify-content: space-around; height: 100vh">
            <div  class="col-md-3 ">
                <div class="text-center mt-5 avatar-image">
-                 <img class="avatar" :src="`http://localhost:3000/${getDetailUser.detailUser.image}`" alt="" srcset="">
+                 <img class="avatar" :src="`${URL}/${getDetailUser.detailUser.image}`" alt="" srcset="">
                  <input  type="file" class="upload" @change="onSelectFileedit($event)"/>
                </div>
                <div class="text-center mt-3" >
@@ -100,6 +100,7 @@ export default {
   },
   data () {
     return {
+      URL: process.env.VUE_APP_URL
       // socket: io('http://localhost:3000')
     }
   },
@@ -134,9 +135,13 @@ export default {
       }
       this.actUpdateUser(save)
         .then((result) => {
-          alert(result)
-          window.location = '/chatlist'
-          localStorage.setItem('image', this.getDetailUser.detailUser.image)
+          if (result === 'Success update user') {
+            alert('Success Update')
+            window.location = '/chatlist'
+          } else {
+            alert(result)
+            window.location = '/editprofile'
+          }
         }).catch((err) => {
           alert(err.message)
         })

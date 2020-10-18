@@ -1,5 +1,5 @@
 import axios from 'axios'
-// const { URL } = require('../../helper/env')
+import { URL } from '../../helper/env'
 const state = () => {
   return {
     token: localStorage.getItem('tokenaccess') || null,
@@ -28,7 +28,7 @@ const mutations = {
 const actions = {
   registrasi (context, payload) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:3000/users/register', payload)
+      axios.post(`${URL}/users/register`, payload)
         .then((result) => {
           resolve(result.data.message)
         }).catch((err) => {
@@ -38,19 +38,14 @@ const actions = {
   },
   login (context, payload) {
     return new Promise((resolve, reject) => {
-      axios.post('http://localhost:3000/users/login', payload)
+      axios.post(`${URL}/users/login`, payload)
         .then((result) => {
-          if (result.data.message === 'Success Login') {
-            localStorage.setItem('tokenaccess', result.data.data.tokenaccess)
-            localStorage.setItem('refreshtoken', result.data.data.refreshtoken)
-            localStorage.setItem('id', result.data.data.id)
-            localStorage.setItem('fullname', result.data.data.fullname)
-            localStorage.setItem('image', result.data.data.image)
-            resolve()
-          } else {
-            resolve(result.data.message)
-            window.location = '/'
-          }
+          localStorage.setItem('tokenaccess', result.data.data.tokenaccess)
+          localStorage.setItem('refreshtoken', result.data.data.refreshtoken)
+          localStorage.setItem('id', result.data.data.id)
+          localStorage.setItem('fullname', result.data.data.fullname)
+          localStorage.setItem('image', result.data.data.image)
+          resolve(result.data)
         }).catch((err) => {
           alert(err.message)
         })
@@ -58,7 +53,7 @@ const actions = {
   },
   actgetDetailUser (context, payload) {
     return new Promise((resolve, reject) => {
-      axios.get(`http://localhost:3000/users/getDetail/${payload}`)
+      axios.get(`${URL}/users/getDetail/${payload}`)
         .then((result) => {
           context.commit('GET_DETAIL_USER', result.data.data[0])
           resolve(result.data)
@@ -69,9 +64,19 @@ const actions = {
   },
   actUpdateUser (context, payload) {
     return new Promise((resolve, reject) => {
-      axios.put(`http://localhost:3000/users/update/${payload.id}`, payload.dataUser)
+      axios.put(`${URL}/users/update/${payload.id}`, payload.dataUser)
         .then((result) => {
           console.log(result.config.url)
+          resolve(result.data.message)
+        }).catch((err) => {
+          reject(err)
+        })
+    })
+  },
+  deleteMessage (context, payload) {
+    return new Promise((resolve, reject) => {
+      axios.delete(`${URL}/users/deleteMessage/${payload}`)
+        .then((result) => {
           resolve(result.data.message)
         }).catch((err) => {
           reject(err)

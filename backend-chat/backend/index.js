@@ -32,7 +32,6 @@ io.on('connection',(socket) => {
   })
   
   socket.on('send-message', (payload) => {
-    console.log(payload)
     const msg = `${payload.sender}: ${payload.message}`
     db.query(`INSERT INTO message (sender,receiver,message) 
     VALUES ('${payload.sender}','${payload.receiver}','${payload.message}')`, (err,result) => {
