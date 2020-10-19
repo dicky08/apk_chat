@@ -75,7 +75,6 @@ const usersController = {
           const id =databaseUser[0].id
           const fullname =databaseUser[0].full_name
           const image =databaseUser[0].image
-          console.log(databaseUser[0]);
           const hashData = {
             id:id,
             email: body.email
